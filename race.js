@@ -9,6 +9,9 @@ let tortoisePosition = 1;
 let harePosition = 1;
 let raceInterval = null;
 
+let tortoiseWins = 0;
+let hareWins = 0;
+
 startBtn.addEventListener("click", startRace);
 // start the race with a button click
 // trigger the move of the tortoise and hare evert second
@@ -121,13 +124,27 @@ function renderTrack() {
     }
 }
 
+function showUpdatedScore(winner) {
+    if (winner === "tortoise") {
+        tortoiseWins++;
+        document.getElementById("tortoise-score").textContent =
+            `Tortoise: ${tortoiseWins} wins`;
+    } else if (winner === "hare") {
+        hareWins++;
+        document.getElementById("hare-score").textContent =
+            `Hare: ${hareWins} wins`;
+    }
+}
+
 function showResult() {
     if (tortoisePosition >= TRACK_LENGTH && harePosition >= TRACK_LENGTH) {
         messageEl.textContent = "It's a tie!";
     } else if (tortoisePosition >= TRACK_LENGTH) {
         messageEl.textContent = "TORTOISE WINS!!";
+        showUpdatedScore("tortoise");
     } else if (harePosition >= TRACK_LENGTH) {
         messageEl.textContent = "HARE WINS!!";
+        showUpdatedScore("hare");
     }
 }
 
